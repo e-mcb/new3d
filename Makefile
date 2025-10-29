@@ -20,7 +20,8 @@ SRCS		=	init.c \
 			  	utils/utils.c \
 				utils/utils_array.c \
 				utils/new_split.c \
-				utils/cleanup_utils.c
+				utils/cleanup_utils.c \
+				utils/maths_utils.c
 			  
 
 OBJS		= $(SRCS:.c=.o)

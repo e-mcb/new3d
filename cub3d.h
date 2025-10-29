@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 17:14:44 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 20:47:15 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/10/29 21:08:56 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,7 @@ float	deg_to_rad(float degrees);
 float	rad_to_deg(float rad);
 
 //parsing
-int		is_texture_or_color(char *line);
 int		read_map(char *filename, t_parse *parse);
-int		parse_texture_or_color(char *line, t_parse *parse);
-int		pad_map_lines(t_parse *parse);
-int		convert_map_list_to_array(t_list *map_lines, t_parse *parse);
 int		spawn_point(char **map, t_player *player);
 int		validate_struct_var(t_parse *parse, t_player *player);
 int		spawn_point(char **map, t_player *player);
