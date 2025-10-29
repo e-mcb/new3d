@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:59 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 20:58:33 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/10/29 23:03:39 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,39 @@ int	flood_fill(char **map, t_parse *parse, int x, int y)
 	return (1);
 }
 
+#include <stdlib.h>
+
+void	pad_map(t_parse *parse)
+{
+	int		y;
+	int		row_len;
+	char	*new_row;
+
+	y = 0;
+	while (parse->map[y] != NULL)
+	{
+		row_len = ft_strlen(parse->map[y]);
+		if (row_len > 0 && parse->map[y][row_len - 1] == '\n')
+		{
+			parse->map[y][row_len - 1] = '\0';
+			row_len--;
+		}
+		if (row_len < parse->map_width)
+		{
+			new_row = malloc(parse->map_width + 1);
+			if (!new_row)
+				return ;
+			ft_strlcpy(new_row, parse->map[y], parse->map_width + 1);
+			ft_memset(new_row + row_len, '0', parse->map_width - row_len);
+			new_row[parse->map_width] = '\0';
+			free(parse->map[y]);
+			parse->map[y] = new_row;
+		}
+		y++;
+	}
+}
+
+
 // int	check_xpm_files(t_parse *parse)
 // {
 // 	int	error;
@@ -103,15 +136,20 @@ int	validate_struct_var(t_parse *parse, t_player *player)
 	
 	if (validate_rgb_array(parse))
 		return (1);
+	pad_map(parse);
 	map_copy = duplicate_map(parse->map, array_size(parse->map));
 	if (!map_copy)
 	{
 		printf("map_copy malloc error\n");
 		return (1);
 	}
+	int i = -1;
+	while (parse->map[++i])
+		printf("map:%s\n", parse->map[i]);
 	if (!flood_fill(map_copy, parse, player->init_int_x, player->init_int_y))
 	{
 		ft_putstr_fd("validate_struct_var:flood_fill error", 2);
+		ft_free_str_array(map_copy);
 		return (1);
 	}
 	ft_free_str_array(map_copy);

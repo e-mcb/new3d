@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:54 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 20:51:25 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/10/29 22:54:17 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,25 +69,29 @@ int	map_lst_to_char_array(t_list **map_lines, t_parse **parse)
 {
 	int		size;
 	int		i;
+	size_t	len;
 	t_list	*tmp;
 
 	i = 0;
 	size = ft_lstsize(*map_lines);
 	(*parse)->map = (char **)malloc(sizeof(char *) * (size + 1));
 	tmp = *map_lines;
+	len = ft_strlen((*map_lines)->content);
 	while (tmp)
 	{
 		if (tmp->content == NULL || ((char *)tmp->content)[0] == 0)
 			return (ft_putstr_fd("map_to_array: empty line in the map", 2), 1);
+		if (ft_strlen(tmp->content) > len)
+			len = ft_strlen(tmp->content);
 		(*parse)->map[i] = ft_strdup(tmp->content);
 		if ((*parse)->map[i] == NULL)
 			return (ft_putstr_fd("map_to_array: malloc error", 2), 1);
 		i++;
 		tmp = tmp->next;
 	}
-	ft_lstclear(map_lines, free);
 	(*parse)->map[i] = NULL;
-	return (0);
+	(*parse)->map_width = len;
+	return (ft_lstclear(map_lines, free), 0);
 }
 
 int	replace_spaces_and_find_start(t_parse *parse)

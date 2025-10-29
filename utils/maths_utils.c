@@ -6,11 +6,11 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 21:09:29 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 21:09:35 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/10/29 21:53:52 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 float	deg_to_rad(float degrees)
 {

@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 17:14:44 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 21:08:56 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/10/29 22:38:13 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_parse
 	int		floor_color[3];
 	int		ceiling_color[3];
 	char	**map;
+	int		map_width;
 }	t_parse;
 
 typedef struct s_player

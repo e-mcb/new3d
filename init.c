@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:40 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 20:39:41 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/10/29 22:38:31 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_parse(t_parse *parse)
 		i++;
 	}
 	parse->map = NULL;
+	parse->map_width = -1;
 }
 
 void	init_player(t_player *player)
