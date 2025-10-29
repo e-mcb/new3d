@@ -1,19 +1,16 @@
-#include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/29 20:39:57 by mzutter           #+#    #+#             */
+/*   Updated: 2025/10/29 20:52:40 by mzutter          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	ft_free_str_array(char **arr)
-{
-	int	i;
-
-	i = 0;
-	if (!arr)
-		return ;
-	while (arr[i] != NULL)
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
+#include "../cub3d.h"
 
 int	is_sep(char c, const char *seps)
 {
@@ -43,18 +40,6 @@ int	is_only_digits(char *str)
 		i++;
 	}
 	return (1);
-}
-
-int	array_size(char **arr)
-{
-	int	i;
-
-	i = 0;
-	if (!arr)
-		return (0);
-	while (arr[i] != NULL)
-		i++;
-	return (i);
 }
 
 char	**duplicate_map(char **map, int height)
@@ -94,11 +79,10 @@ bool	is_valid_identifier(const char *ptr)
 	if ((ptr[0] == 'F' || ptr[0] == 'C') && (ptr[1] == ' ' || ptr[1] == '\t'))
 		return (true);
 	if ((ft_strncmp(ptr, "NO", 2) == 0
-		|| ft_strncmp(ptr, "SO", 2) == 0
-		|| ft_strncmp(ptr, "EA", 2) == 0
-		|| ft_strncmp(ptr, "WE", 2) == 0)
+			|| ft_strncmp(ptr, "SO", 2) == 0
+			|| ft_strncmp(ptr, "EA", 2) == 0
+			|| ft_strncmp(ptr, "WE", 2) == 0)
 		&& (ptr[2] && (ptr[2] == ' ' || ptr[2] == '\t')))
 		return (true);
 	return (false);
 }
-

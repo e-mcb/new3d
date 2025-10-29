@@ -1,4 +1,16 @@
-#include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   new_split.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/29 20:39:52 by mzutter           #+#    #+#             */
+/*   Updated: 2025/10/29 20:52:54 by mzutter          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../cub3d.h"
 
 static	void	*free_tabs(char **arr)
 {
@@ -23,7 +35,6 @@ static int	count_words(char const *s, const char *seps)
 	i = 0;
 	j = 0;
 	k = 0;
-
 	while (is_sep(s[i], seps) && s[i] != 0)
 		i++;
 	while (s[i] != 0)
@@ -42,7 +53,6 @@ static int	count_words(char const *s, const char *seps)
 	}
 	return (j + k);
 }
-
 
 static char	*fill_tab(const char *str, int start, int end)
 {

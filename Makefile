@@ -11,14 +11,17 @@ RM			= rm -f
 #                                   SOURCES                                    #
 # **************************************************************************** #
 
-SRCS		= cleanup_utils.c \
-			  init.c \
-			  main.c \
-			  new_split.c \
-			  parsing.c \
-			  utils.c \
-			  spawn.c \
-			  validate_map.c \
+SRCS		=	init.c \
+				main.c \
+			  	parsing/parsing.c \
+				parsing/spawn.c \
+			  	parsing/validate_map.c \
+			  	parsing/fill_struct.c \
+			  	utils/utils.c \
+				utils/utils_array.c \
+				utils/new_split.c \
+				utils/cleanup_utils.c
+			  
 
 OBJS		= $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 17:14:44 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 01:35:00 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/10/29 20:47:15 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ typedef struct s_player
 	int		init_int_y;
 }	t_player;
 
-
 //init
 void	init_parse(t_parse *parse);
 void	init_player(t_player *player);
@@ -89,6 +88,7 @@ int		convert_map_list_to_array(t_list *map_lines, t_parse *parse);
 int		spawn_point(char **map, t_player *player);
 int		validate_struct_var(t_parse *parse, t_player *player);
 int		spawn_point(char **map, t_player *player);
+int		fill_parse_struct(char **splitted, t_parse **parse);
 
 //utils
 void	ft_free_str_array(char **arr);
