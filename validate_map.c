@@ -8,6 +8,7 @@ int	is_valid_map_char(char c)
 
 static int	validate_rgb_array(t_parse *parse)
 {
+	printf("%d, %d, %d\n", parse->ceiling_color[0], parse->ceiling_color[1], parse->ceiling_color[2]);
 	if (parse->ceiling_color[0] > 255 || parse->ceiling_color[0] < 0
 		|| parse->ceiling_color[1] > 255 || parse->ceiling_color[1] < 0
 		|| parse->ceiling_color[2] > 255 || parse->ceiling_color[2] < 0)
@@ -44,31 +45,44 @@ int	flood_fill(char **map, t_parse *parse, int x, int y)
 	return (1);
 }
 
-int	check_xpm_files(t_parse *parse)
+int	check_xpm_files(t_parse *parse) // redundant 
 {
 	int	error;
+	int	fd;
 
 	error = 0;
-	if (open(parse->texture_north, O_RDONLY) == -1)
-		{
-			ft_putstr_fd("check_xpm_files:failed to open texture file north\n", 2);
-			error = 1;
-		}
-	if (open(parse->texture_south, O_RDONLY) == -1)
-		{
-			ft_putstr_fd("check_xpm_files:failed to open texture file south\n", 2);
-			error = 1;
-		}
-	if (open(parse->texture_east, O_RDONLY) == -1)
-		{
-			ft_putstr_fd("check_xpm_files:failed to open texture file east\n", 2);
-			error = 1;
-		}
-	if (open(parse->texture_west, O_RDONLY) == -1)
-		{
-			ft_putstr_fd("check_xpm_files:failed to open texture file west\n", 2);
-			error = 1;
-		}
+	fd = open(parse->texture_north, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("check_xpm_files:failed to open texture file north\n", 2);
+		error = 1;
+	}
+	if (fd > 2)
+		close (fd);
+	fd = open(parse->texture_south, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("check_xpm_files:failed to open texture file south\n", 2);
+		error = 1;
+	}
+	if (fd > 2)
+		close (fd);
+	fd = open(parse->texture_east, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("check_xpm_files:failed to open texture file east\n", 2);
+		error = 1;
+	}
+	if (fd > 2)
+		close (fd);
+	fd = open(parse->texture_west, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("check_xpm_files:failed to open texture file west\n", 2);
+		error = 1;
+	}
+	if (fd > 2)
+		close (fd);
 	return (error);
 }
 

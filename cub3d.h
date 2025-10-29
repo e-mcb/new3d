@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 17:14:44 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 01:31:08 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/10/29 01:35:00 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,9 @@ typedef struct s_parse
 	char	*texture_west;		//all 4 of these are malloc'd, remember to free
 	char	*texture_east;
 
-	int		texture_fd_array[4];
 	int		floor_color[3];
 	int		ceiling_color[3];
 	char	**map;
-	int		map_height; // pas besoin
-	int		map_width; // pas besoin
 }	t_parse;
 
 typedef struct s_player
@@ -74,11 +71,6 @@ typedef struct s_player
 	int		init_int_y;
 }	t_player;
 
-typedef struct s_list_str
-{
-	char			*content;
-	struct s_list_str	*next;
-}	t_list_str;
 
 //init
 void	init_parse(t_parse *parse);

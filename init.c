@@ -18,8 +18,6 @@ void	init_parse(t_parse *parse)
 		i++;
 	}
 	parse->map = NULL;
-	parse->map_height = 0;
-	parse->map_width = 0;
 }
 
 void	init_player(t_player *player)

@@ -18,7 +18,6 @@ int	main(int argc, char **argv)
 		printf("Error\nCould not read map file\n");
 		return (1);
 	}
-	printf("debug");
 	validate_struct_var(&parse, &player);
 	free_parse(&parse);
 	return (0);
