@@ -19,7 +19,6 @@ SRCS		= cleanup_utils.c \
 			  utils.c \
 			  spawn.c \
 			  validate_map.c \
-			  lst_utils.c
 
 OBJS		= $(SRCS:.c=.o)
 

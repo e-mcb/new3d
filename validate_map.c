@@ -64,7 +64,7 @@ int	check_xpm_files(t_parse *parse)
 			ft_putstr_fd("check_xpm_files:failed to open texture file east\n", 2);
 			error = 1;
 		}
-	if (open(parse->texture_west, O_RDONLY) == 1)
+	if (open(parse->texture_west, O_RDONLY) == -1)
 		{
 			ft_putstr_fd("check_xpm_files:failed to open texture file west\n", 2);
 			error = 1;

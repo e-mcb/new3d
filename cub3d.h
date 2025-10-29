@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 17:14:44 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 01:13:06 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/10/29 01:31:08 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,6 @@ typedef struct s_list_str
 	char			*content;
 	struct s_list_str	*next;
 }	t_list_str;
-
-//lists
-t_list_str	*ft_lstlast_str(t_list_str *lst);
-void		ft_lstadd_back_str(t_list_str **lst, t_list_str *new_node);
-t_list_str	*ft_lstnew_str(char *content);
-int	ft_lstsize_str(t_list_str *lst);
 
 //init
 void	init_parse(t_parse *parse);
