@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:41 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 20:55:17 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/08 20:57:26 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,12 @@ int	load_texture(t_player *player, t_texture *tex, char *path)
 	tex->img = mlx_xpm_file_to_image(player->mlx, path,
 			&tex->width, &tex->height);
 	if (!tex->img)
+	{
+		ft_putstr_fd("Failed to open the texture", 2);
+		ft_putstr_fd(path, 2);
+		ft_putchar_fd('\n', 2);
 		return (free_player(player), 1);
+	}
 	tex->data = (int *)mlx_get_data_addr(tex->img,
 			&bpp, &size_line, &endian);
 	if (!tex->data)

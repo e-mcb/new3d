@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:54 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 22:54:17 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/08 19:32:48 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 static int	process_line(char *line, t_parse **parse, t_list **map_lines,
 						bool *map_started)
 {
-	// int		error_code;
 	int		i;
 	char	**splitted;
 
-	// error_code = 0;
 	i = 0;
 	while (line[i] && is_whitespace(line[i]))
 		i++;

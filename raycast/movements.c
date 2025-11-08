@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movements.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/08 19:31:18 by mzutter           #+#    #+#             */
+/*   Updated: 2025/11/08 21:08:32 by mzutter          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void	go_forward(t_player *player)
@@ -7,7 +19,7 @@ void	go_forward(t_player *player)
 
 	next_x = player->init_x + cos(player->init_angle) * MOVE_SPEED;
 	next_y = player->init_y - sin(player->init_angle) * MOVE_SPEED;
-	if (player->parse.map[(int)next_y][(int)next_x] != '1')
+	if (can_move(player, next_x, next_y))
 	{
 		player->init_x = next_x;
 		player->init_y = next_y;
@@ -21,7 +33,7 @@ void	go_backward(t_player *player)
 
 	next_x = player->init_x - cos(player->init_angle) * MOVE_SPEED;
 	next_y = player->init_y + sin(player->init_angle) * MOVE_SPEED;
-	if (player->parse.map[(int)next_y][(int)next_x] != '1')
+	if (can_move(player, next_x, next_y))
 	{
 		player->init_x = next_x;
 		player->init_y = next_y;
@@ -35,7 +47,7 @@ void	go_left(t_player *player)
 
 	next_x = player->init_x + cos(player->init_angle + M_PI / 2) * MOVE_SPEED;
 	next_y = player->init_y - sin(player->init_angle + M_PI / 2) * MOVE_SPEED;
-	if (player->parse.map[(int)next_y][(int)next_x] != '1')
+	if (can_move(player, next_x, next_y))
 	{
 		player->init_x = next_x;
 		player->init_y = next_y;
@@ -49,7 +61,7 @@ void	go_right(t_player *player)
 
 	next_x = player->init_x + cos(player->init_angle - M_PI / 2) * MOVE_SPEED;
 	next_y = player->init_y - sin(player->init_angle - M_PI / 2) * MOVE_SPEED;
-	if (player->parse.map[(int)next_y][(int)next_x] != '1')
+	if (can_move(player, next_x, next_y))
 	{
 		player->init_x = next_x;
 		player->init_y = next_y;

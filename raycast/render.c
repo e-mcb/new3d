@@ -1,4 +1,16 @@
-#include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/08 19:32:30 by mzutter           #+#    #+#             */
+/*   Updated: 2025/11/08 21:07:46 by mzutter          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../cub3d.h"
 
 static void	put_pixel(t_img *img, int x, int y, int *rgb)
 {
@@ -64,9 +76,17 @@ int	render_frame(t_player *player)
 {
 	int	x;
 
+	rotate(player);
+	if (player->key_w)
+		go_forward(player);
+	if (player->key_s)
+		go_backward(player);
+	if (player->key_a)
+		go_left(player);
+	if (player->key_d)
+		go_right(player);
 	player->direction_angle = player->init_angle + FOV / 2.0;
 	x = 0;
-	rotate(player);
 	while (x < SCREEN_W)
 	{
 		player->dist = castraydda(player);

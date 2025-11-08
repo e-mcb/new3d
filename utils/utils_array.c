@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_array.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sradosav <sradosav@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:41:59 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/08 01:49:11 by sradosav         ###   ########.fr       */
+/*   Updated: 2025/11/08 19:36:44 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,35 @@ int	array_size(char **arr)
 	while (arr[i] != NULL)
 		i++;
 	return (i);
+}
+
+static int	is_valid_map_char(char c)
+{
+	return (c == '0' || c == '1' || c == ' '
+		|| c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
+
+int	flood_fill(char **map, t_parse *parse, int x, int y)
+{
+	char	c;
+
+	if (x < 0 || y < 0)
+		return (0);
+	c = map[y][x];
+	if (c == ' ' || c == '\0')
+		return (0);
+	if (c == '1' || c == 'V')
+		return (1);
+	if (!is_valid_map_char(c))
+		return (0);
+	map[y][x] = 'V';
+	if (!flood_fill(map, parse, x + 1, y))
+		return (0);
+	if (!flood_fill(map, parse, x - 1, y))
+		return (0);
+	if (!flood_fill(map, parse, x, y + 1))
+		return (0);
+	if (!flood_fill(map, parse, x, y - 1))
+		return (0);
+	return (1);
 }

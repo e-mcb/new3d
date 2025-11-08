@@ -6,17 +6,11 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:59 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/08 02:33:14 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/08 19:39:47 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-int	is_valid_map_char(char c)
-{
-	return (c == '0' || c == '1' || c == ' '
-		|| c == 'N' || c == 'S' || c == 'E' || c == 'W');
-}
 
 static int	validate_rgb_array(t_parse *parse)
 {
@@ -31,39 +25,14 @@ static int	validate_rgb_array(t_parse *parse)
 	return (0);
 }
 
-int	flood_fill(char **map, t_parse *parse, int x, int y)
-{
-	char	c;
-
-	if (x < 0 || y < 0)
-		return (0);
-	c = map[y][x];
-	if (c == ' ' || c == '\0')
-		return (0);
-	if (c == '1' || c == 'V')
-		return (1);
-	if (!is_valid_map_char(c))
-		return (0);
-	map[y][x] = 'V';
-	if (!flood_fill(map, parse, x + 1, y))
-		return (0);
-	if (!flood_fill(map, parse, x - 1, y))
-		return (0);
-	if (!flood_fill(map, parse, x, y + 1))
-		return (0);
-	if (!flood_fill(map, parse, x, y - 1))
-		return (0);
-	return (1);
-}
-
 void	pad_map(t_parse *parse)
 {
 	int		y;
 	int		row_len;
 	char	*new_row;
 
-	y = 0;
-	while (parse->map[y] != NULL)
+	y = -1;
+	while (parse->map[++y] != NULL)
 	{
 		row_len = ft_strlen(parse->map[y]);
 		if (row_len > 0 && parse->map[y][row_len - 1] == '\n')
@@ -82,50 +51,8 @@ void	pad_map(t_parse *parse)
 			free(parse->map[y]);
 			parse->map[y] = new_row;
 		}
-		y++;
 	}
 }
-
-// int	check_xpm_files(t_parse *parse)
-// {
-// 	int	error;
-// 	int	fd;
-
-// 	error = 0;
-// 	fd = open(parse->texture_north, O_RDONLY);
-// 	if (fd == -1)
-// 	{
-// 		ft_putstr_fd("check_xpm_files:failed to open texture file north\n", 2);
-// 		error = 1;
-// 	}
-// 	if (fd > 2)
-// 		close (fd);
-// 	fd = open(parse->texture_south, O_RDONLY);
-// 	if (fd == -1)
-// 	{
-// 		ft_putstr_fd("check_xpm_files:failed to open texture file south\n", 2);
-// 		error = 1;
-// 	}
-// 	if (fd > 2)
-// 		close (fd);
-// 	fd = open(parse->texture_east, O_RDONLY);
-// 	if (fd == -1)
-// 	{
-// 		ft_putstr_fd("check_xpm_files:failed to open texture file east\n", 2);
-// 		error = 1;
-// 	}
-// 	if (fd > 2)
-// 		close (fd);
-// 	fd = open(parse->texture_west, O_RDONLY);
-// 	if (fd == -1)
-// 	{
-// 		ft_putstr_fd("check_xpm_files:failed to open texture file west\n", 2);
-// 		error = 1;
-// 	}
-// 	if (fd > 2)
-// 		close (fd);
-// 	return (error);
-// }
 
 static void	outer_void_to_wall(t_parse **parse, char **map_copy)
 {
@@ -151,7 +78,9 @@ static void	outer_void_to_wall(t_parse **parse, char **map_copy)
 int	validate_struct_var(t_parse *parse, t_player *player)
 {
 	char	**map_copy;
-	
+	int		i;
+
+	i = -1;
 	if (validate_rgb_array(parse))
 		return (1);
 	pad_map(parse);
@@ -161,7 +90,6 @@ int	validate_struct_var(t_parse *parse, t_player *player)
 		printf("map_copy malloc error\n");
 		return (1);
 	}
-	int i = -1;
 	while (parse->map[++i])
 		printf("map:%s\n", parse->map[i]);
 	if (!flood_fill(map_copy, parse, player->init_int_x, player->init_int_y))
@@ -172,9 +100,5 @@ int	validate_struct_var(t_parse *parse, t_player *player)
 	}
 	outer_void_to_wall(&parse, map_copy);
 	ft_free_str_array(map_copy);
-	// if (check_xpm_files(parse))
-	// {
-	// 	return (1);      //Redondant -> mlx_xpm_to_img renvoie null si open fail mais j'ai laisse la fonction
-	// }
 	return (0);
 }

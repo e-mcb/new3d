@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:40 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 22:38:31 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/08 20:34:06 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ void	init_player(t_player *player)
 	player->init_int_y = -1;
 	player->key_left = 0;
 	player->key_right = 0;
+	player->key_w = 0;
+	player->key_a = 0;
+	player->key_s = 0;
+	player->key_d = 0;
 	player->dist = 0;
 	player->wall_height = 0;
 	player->wall_x = 0;

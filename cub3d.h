@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sradosav <sradosav@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 17:14:44 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/08 01:51:52 by sradosav         ###   ########.fr       */
+/*   Updated: 2025/11/08 21:12:00 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define FOV 1.047197551
 # define ROTATION_SPEED 0.1
 # define MOVE_SPEED 0.1
+# define COLLISION_RADIUS 0.3
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -110,6 +111,10 @@ typedef struct s_player
 	int			init_int_y;
 	int			key_left;
 	int			key_right;
+	int			key_w;
+	int			key_s;
+	int			key_a;
+	int			key_d;
 	t_parse		parse;
 	void		*mlx;
 	void		*mlx_win;
@@ -170,6 +175,7 @@ int		key_press(int keycode, t_player	*player);
 int		key_release(int keycode, t_player *player);
 int		close_hook(t_player	*player);
 void	destroy_textures(t_player *player);
+int		flood_fill(char **map, t_parse *parse, int x, int y);
 
 //raycast
 double	castraydda(t_player *player);
@@ -181,5 +187,6 @@ void	go_backward(t_player *player);
 void	go_left(t_player *player);
 void	go_right(t_player *player);
 void	rotate(t_player *player);
+int		can_move(t_player *player, double next_x, double next_y);
 
 #endif
