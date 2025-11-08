@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:59 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 23:03:39 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/08 02:33:14 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,27 @@ void	pad_map(t_parse *parse)
 // 	return (error);
 // }
 
+static void	outer_void_to_wall(t_parse **parse, char **map_copy)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map_copy[i] && (*parse)->map[i])
+	{
+		j = 0;
+		while (map_copy[i][j] && (*parse)->map[i][j])
+		{
+			if (map_copy[i][j] == '0')
+			{
+				(*parse)->map[i][j] = '1';
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 int	validate_struct_var(t_parse *parse, t_player *player)
 {
 	char	**map_copy;
@@ -150,6 +171,7 @@ int	validate_struct_var(t_parse *parse, t_player *player)
 		ft_free_str_array(map_copy);
 		return (1);
 	}
+	outer_void_to_wall(&parse, map_copy);
 	ft_free_str_array(map_copy);
 	// if (check_xpm_files(parse))
 	// {
