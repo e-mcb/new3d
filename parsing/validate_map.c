@@ -56,8 +56,6 @@ int	flood_fill(char **map, t_parse *parse, int x, int y)
 	return (1);
 }
 
-#include <stdlib.h>
-
 void	pad_map(t_parse *parse)
 {
 	int		y;

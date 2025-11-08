@@ -1,10 +1,10 @@
-# **************************************************************************** #
+## **************************************************************************** #
 #                                   SETTINGS                                   #
 # **************************************************************************** #
 
 NAME		= parser
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I$(MLX_PATH)
 RM			= rm -f
 
 # **************************************************************************** #
@@ -13,6 +13,8 @@ RM			= rm -f
 
 SRCS		=	init.c \
 				main.c \
+				render.c \
+				raycast.c \
 			  	parsing/parsing.c \
 				parsing/spawn.c \
 			  	parsing/validate_map.c \
@@ -21,8 +23,8 @@ SRCS		=	init.c \
 				utils/utils_array.c \
 				utils/new_split.c \
 				utils/cleanup_utils.c \
-				utils/maths_utils.c
-			  
+				utils/maths_utils.c \
+				utils/hooks.c
 
 OBJS		= $(SRCS:.c=.o)
 
@@ -34,27 +36,43 @@ LIBFT_DIR	= libft
 LIBFT		= $(LIBFT_DIR)/libft.a
 
 # **************************************************************************** #
+#                                   MINILIBX                                   #
+# **************************************************************************** #
+
+MLX_REPO	= https://github.com/42Paris/minilibx-linux.git
+MLX_PATH	= minilibx
+MLX			= $(MLX_PATH)/libmlx.a
+MLX_FLAGS	= -L$(MLX_PATH) -lmlx -lXext -lX11 -lm
+
+# **************************************************************************** #
 #                                   RULES                                      #
 # **************************************************************************** #
 
-all: $(NAME)
+all: $(MLX) $(LIBFT) $(NAME)
 
 $(LIBFT):
-	@echo "Building libft..."
+	@echo "📚 Building libft..."
 	@$(MAKE) -C $(LIBFT_DIR) bonus
 
-$(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+$(MLX):
+	@echo "🧩 Checking MiniLibX..."
+	@git clone $(MLX_REPO) $(MLX_PATH) 2>/dev/null || true
+	@$(MAKE) -C $(MLX_PATH)
+
+$(NAME): $(OBJS) $(LIBFT) $(MLX)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
 	@echo "✅ $(NAME) built successfully!"
 
 clean:
 	@$(RM) $(OBJS)
-	@$(MAKE) -C $(LIBFT_DIR) clean
+	@[ -d $(LIBFT_DIR) ] && $(MAKE) -C $(LIBFT_DIR) clean || true
+	@[ -d $(MLX_PATH) ] && $(MAKE) -C $(MLX_PATH) clean || true
 	@echo "🧹 Object files cleaned."
 
 fclean: clean
 	@$(RM) $(NAME)
-	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@[ -d $(LIBFT_DIR) ] && $(MAKE) -C $(LIBFT_DIR) fclean || true
+	@rm -rf $(MLX_PATH)
 	@echo "🗑️  Full clean done."
 
 re: fclean all

@@ -15,11 +15,11 @@
 static int	process_line(char *line, t_parse **parse, t_list **map_lines,
 						bool *map_started)
 {
-	int		error_code;
+	// int		error_code;
 	int		i;
 	char	**splitted;
 
-	error_code = 0;
+	// error_code = 0;
 	i = 0;
 	while (line[i] && is_whitespace(line[i]))
 		i++;

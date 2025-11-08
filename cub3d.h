@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sradosav <sradosav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 17:14:44 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 22:38:13 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/08 01:51:52 by sradosav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
+# define SCREEN_W 1920
+# define SCREEN_H 1080
 # define EAST 0
 # define NORTH 1.57079632679
 # define WEST 3.14159265359
 # define SOUTH 4.71238898038
-# define FOV 1.57079632679
+# define FOV 1.047197551
+# define ROTATION_SPEED 0.1
+# define MOVE_SPEED 0.1
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -38,6 +42,33 @@
 # include <limits.h>
 # include <math.h>
 # include "libft/libft.h"
+# include "minilibx/mlx.h"
+# include <X11/keysym.h>
+
+typedef struct s_texture
+{
+	void	*img;
+	int		*data;
+	int		width;
+	int		height;
+}	t_texture;
+
+typedef struct s_textures
+{
+	t_texture	north;
+	t_texture	south;
+	t_texture	east;
+	t_texture	west;
+}	t_textures;
+
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
 
 typedef struct s_parse
 {
@@ -54,23 +85,46 @@ typedef struct s_parse
 
 typedef struct s_player
 {
-	float	current_x;
-	float	current_y;
-	float	init_x;
-	float	init_y;
-	float	init_angle;
-	float	direction_angle;
-	float	fov;
-	bool	collision;
-	float	dir_x;
-	float	dir_y;
-	float	plane_x;
-	float	plane_y;
-	float	move_speed;
-	float	angular_speed;
-	int		init_int_x;
-	int		init_int_y;
+	float		current_x;
+	float		current_y;
+	float		init_x;
+	float		init_y;
+	float		init_angle;
+	float		direction_angle;
+	float		screen_distance;
+	float		dist;
+	float		wall_height;
+	int			init_int_x;
+	int			init_int_y;
+	int			key_left;
+	int			key_right;
+	t_parse		parse;
+	void		*mlx;
+	void		*mlx_win;
+	t_img		img;
+	t_textures	textures;
+	t_texture	*texture_to_show;
+	float		wall_x;
+	
 }	t_player;
+
+typedef struct s_ray
+{
+	float		raydir_x;
+	float		raydir_y;
+	int			map_x;
+	int			map_y;
+	float		deltadist_x ;
+	float		deltadist_y;
+	float		sidedist_x;
+	float		sidedist_y;
+	int			step_x;
+	int			step_y;
+	int			side;
+	float		dist;
+	float		perp_dist;
+	t_texture   *texture;
+}	t_ray;
 
 //init
 void	init_parse(t_parse *parse);
@@ -92,11 +146,20 @@ void	ft_free_str_array(char **arr);
 int		array_size(char **arr);
 char	**duplicate_map(char **map, int height);
 void	free_parse(t_parse *parse);
+void	free_player(t_player *player);
 char	is_cardinal(char c);
 int		is_sep(char c, const char *seps);
 char	**ft_new_split(char const *s, const char *seps);
 bool	is_whitespace(char c);
 bool	is_valid_identifier(const char *ptr);
 int		is_only_digits(char *str);
+int		key_press(int keycode, t_player	*player);
+int		key_release(int keycode, t_player *player);
+int		close_hook(t_player	*player);
+void	destroy_textures(t_player *player);
+
+//raycast
+double	castraydda(t_player *player);
+int		render_frame(t_player *player);
 
 #endif

@@ -43,14 +43,13 @@ void	init_player(t_player *player)
 	player->init_y = -1.0f;
 	player->init_angle = -1.0f;
 	player->direction_angle = 0.0f;
-	player->fov = FOV;
-	player->collision = false;
-	player->dir_x = 0.0f;
-	player->dir_y = 0.0f;
-	player->plane_x = 0.0f;
-	player->plane_y = 0.0f;
-	player->move_speed = 0.05f;
-	player->angular_speed = 0.03f;
+	player->screen_distance = 0.0f;
 	player->init_int_x = -1;
 	player->init_int_y = -1;
+	player->key_left = 0;
+	player->key_right = 0;
+	player->dist = 0;
+	player->wall_height = 0;
+	player->wall_x = 0;
+	init_parse(&player->parse);
 }
