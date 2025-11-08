@@ -45,6 +45,18 @@
 # include "minilibx/mlx.h"
 # include <X11/keysym.h>
 
+typedef struct texture_data
+{
+	int		y;
+	int		start;
+	int		end;
+	float	step;
+	float	tex_pos;
+	int		tex_x;
+	int		tex_y;
+	int		color;
+}	t_texture_data;
+
 typedef struct s_texture
 {
 	void	*img;
@@ -105,7 +117,6 @@ typedef struct s_player
 	t_textures	textures;
 	t_texture	*texture_to_show;
 	float		wall_x;
-	
 }	t_player;
 
 typedef struct s_ray
@@ -123,12 +134,14 @@ typedef struct s_ray
 	int			side;
 	float		dist;
 	float		perp_dist;
-	t_texture   *texture;
+	t_texture	*texture;
 }	t_ray;
 
 //init
 void	init_parse(t_parse *parse);
 void	init_player(t_player *player);
+int		ft_mlx_init(t_player *player);
+void	init_ray(t_ray *ray, t_player *player);
 
 //maths
 float	deg_to_rad(float degrees);
@@ -161,5 +174,12 @@ void	destroy_textures(t_player *player);
 //raycast
 double	castraydda(t_player *player);
 int		render_frame(t_player *player);
+
+//movements
+void	go_forward(t_player *player);
+void	go_backward(t_player *player);
+void	go_left(t_player *player);
+void	go_right(t_player *player);
+void	rotate(t_player *player);
 
 #endif

@@ -11,62 +11,6 @@ int	close_hook(t_player	*player)
 	return (0);
 }
 
-void	go_forward(t_player *player)
-{
-	double	next_x;
-	double	next_y;
-
-	next_x = player->init_x + cos(player->init_angle) * MOVE_SPEED;
-	next_y = player->init_y - sin(player->init_angle) * MOVE_SPEED;
-	if (player->parse.map[(int)next_y][(int)next_x] != '1')
-	{
-		player->init_x = next_x;
-		player->init_y = next_y;
-	}
-}
-
-void	go_backward(t_player *player)
-{
-	double	next_x;
-	double	next_y;
-
-	next_x = player->init_x - cos(player->init_angle) * MOVE_SPEED;
-	next_y = player->init_y + sin(player->init_angle) * MOVE_SPEED;
-	if (player->parse.map[(int)next_y][(int)next_x] != '1')
-	{
-		player->init_x = next_x;
-		player->init_y = next_y;
-	}
-}
-
-void	go_left(t_player *player)
-{
-	double	next_x;
-	double	next_y;
-
-	next_x = player->init_x + cos(player->init_angle + M_PI / 2) * MOVE_SPEED;
-	next_y = player->init_y - sin(player->init_angle + M_PI / 2) * MOVE_SPEED;
-	if (player->parse.map[(int)next_y][(int)next_x] != '1')
-	{
-		player->init_x = next_x;
-		player->init_y = next_y;
-	}
-}
-
-void	go_right(t_player *player)
-{
-	double	next_x;
-	double	next_y;
-
-	next_x = player->init_x + cos(player->init_angle - M_PI / 2) * MOVE_SPEED;
-	next_y = player->init_y - sin(player->init_angle - M_PI / 2) * MOVE_SPEED;
-	if (player->parse.map[(int)next_y][(int)next_x] != '1')
-	{
-		player->init_x = next_x;
-		player->init_y = next_y;
-	}
-}
-
 int	key_press(int keycode, t_player	*player)
 {
 	if (keycode == 65307)

@@ -34,43 +34,18 @@ int	parse(int argc, char **argv, t_player *player)
 	return (0);
 }
 
-int	ft_mlx_init(t_player *player)
-{
-	player->mlx = mlx_init();
-	if (!player->mlx)
-	{
-		free_parse(&player->parse);
-		return (1);
-	}
-	player->mlx_win = mlx_new_window(player->mlx, SCREEN_W, SCREEN_H, "Cub3d");
-	if (!player->mlx_win)
-	{
-		free_parse(&player->parse);
-		return (1);
-	}
-	player->img.img = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
-	if (!player->img.img)
-	{
-		mlx_destroy_window(player->mlx, player->mlx_win);
-		free_parse(&player->parse);
-		return (1);
-	}
-	player->img.addr = mlx_get_data_addr(player->img.img,
-			&player->img.bits_per_pixel, &player->img.line_length,
-			&player->img.endian);
-	return (0);
-}
-
 int	load_texture(t_player *player, t_texture *tex, char *path)
 {
 	int	bpp;
 	int	size_line;
 	int	endian;
 
-	tex->img = mlx_xpm_file_to_image(player->mlx, path, &tex->width, &tex->height);
+	tex->img = mlx_xpm_file_to_image(player->mlx, path,
+			&tex->width, &tex->height);
 	if (!tex->img)
 		return (free_player(player), 1);
-	tex->data = (int *)mlx_get_data_addr(tex->img, &bpp, &size_line, &endian);
+	tex->data = (int *)mlx_get_data_addr(tex->img,
+			&bpp, &size_line, &endian);
 	if (!tex->data)
 		return (free_player(player), 1);
 	return (0);
@@ -78,13 +53,17 @@ int	load_texture(t_player *player, t_texture *tex, char *path)
 
 int	load_all_textures(t_player	*player)
 {
-	if (load_texture(player, &player->textures.north, player->parse.texture_north))
+	if (load_texture(player, &player->textures.north,
+			player->parse.texture_north))
 		return (1);
-	if (load_texture(player, &player->textures.south, player->parse.texture_south))
+	if (load_texture(player, &player->textures.south,
+			player->parse.texture_south))
 		return (1);
-	if (load_texture(player, &player->textures.east, player->parse.texture_east))
+	if (load_texture(player, &player->textures.east,
+			player->parse.texture_east))
 		return (1);
-	if (load_texture(player, &player->textures.west, player->parse.texture_west))
+	if (load_texture(player, &player->textures.west,
+			player->parse.texture_west))
 		return (1);
 	return (0);
 }

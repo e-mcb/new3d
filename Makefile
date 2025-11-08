@@ -24,7 +24,8 @@ SRCS		=	init.c \
 				utils/new_split.c \
 				utils/cleanup_utils.c \
 				utils/maths_utils.c \
-				utils/hooks.c
+				utils/hooks.c\
+				movements.c
 
 OBJS		= $(SRCS:.c=.o)
 

@@ -86,7 +86,6 @@ void	pad_map(t_parse *parse)
 	}
 }
 
-
 // int	check_xpm_files(t_parse *parse)
 // {
 // 	int	error;

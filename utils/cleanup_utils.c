@@ -62,12 +62,12 @@ void	free_player(t_player *player)
 
 void	destroy_textures(t_player *player)
 {
-    if (player->textures.north.img)
-        mlx_destroy_image(player->mlx, player->textures.north.img);
-    if (player->textures.south.img)
-        mlx_destroy_image(player->mlx, player->textures.south.img);
-    if (player->textures.east.img)
-        mlx_destroy_image(player->mlx, player->textures.east.img);
-    if (player->textures.west.img)
-        mlx_destroy_image(player->mlx, player->textures.west.img);
+	if (player->textures.north.img)
+		mlx_destroy_image(player->mlx, player->textures.north.img);
+	if (player->textures.south.img)
+		mlx_destroy_image(player->mlx, player->textures.south.img);
+	if (player->textures.east.img)
+		mlx_destroy_image(player->mlx, player->textures.east.img);
+	if (player->textures.west.img)
+		mlx_destroy_image(player->mlx, player->textures.west.img);
 }
