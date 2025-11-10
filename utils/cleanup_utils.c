@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:36 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 20:52:59 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/10 23:49:46 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@ void	free_parse(t_parse *parse)
 	i = 0;
 	if (!parse)
 		return ;
-	free(parse->texture_north);
-	free(parse->texture_south);
-	free(parse->texture_west);
-	free(parse->texture_east);
+	if (parse->texture_north)
+		free(parse->texture_north);
+	if (parse->texture_south)
+		free(parse->texture_south);
+	if (parse->texture_west)
+		free(parse->texture_west);
+	if (parse->texture_east)
+		free(parse->texture_east);
 	if (parse->map)
 	{
 		i = 0;
@@ -62,12 +66,12 @@ void	free_player(t_player *player)
 
 void	destroy_textures(t_player *player)
 {
-	if (player->textures.north.img)
+	if (player->textures.north.img && player->mlx)
 		mlx_destroy_image(player->mlx, player->textures.north.img);
-	if (player->textures.south.img)
+	if (player->textures.south.img && player->mlx)
 		mlx_destroy_image(player->mlx, player->textures.south.img);
-	if (player->textures.east.img)
+	if (player->textures.east.img && player->mlx)
 		mlx_destroy_image(player->mlx, player->textures.east.img);
-	if (player->textures.west.img)
+	if (player->textures.west.img && player->mlx)
 		mlx_destroy_image(player->mlx, player->textures.west.img);
 }

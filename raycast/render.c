@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 19:32:30 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/08 21:07:46 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/10 23:11:53 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ int	render_frame(t_player *player)
 	int	x;
 
 	rotate(player);
-	if (player->key_w)
+	if (player->key.key_w)
 		go_forward(player);
-	if (player->key_s)
+	if (player->key.key_s)
 		go_backward(player);
-	if (player->key_a)
+	if (player->key.key_a)
 		go_left(player);
-	if (player->key_d)
+	if (player->key.key_d)
 		go_right(player);
 	player->direction_angle = player->init_angle + FOV / 2.0;
 	x = 0;

@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 19:31:18 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/08 21:08:32 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/10 23:11:41 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ void	go_right(t_player *player)
 
 void	rotate(t_player *player)
 {
-	if (player->key_right)
+	if (player->key.key_right)
 	{
 		player->init_angle -= ROTATION_SPEED;
 		if (player->init_angle < 0)
 			player->init_angle += 2 * M_PI;
 	}
-	if (player->key_left)
+	if (player->key.key_left)
 	{
 		player->init_angle += ROTATION_SPEED;
 		if (player->init_angle > 2 * M_PI)

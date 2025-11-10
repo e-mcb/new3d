@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:59 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/08 19:39:47 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/10 21:37:50 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ int	validate_struct_var(t_parse *parse, t_player *player)
 		printf("map_copy malloc error\n");
 		return (1);
 	}
-	while (parse->map[++i])
-		printf("map:%s\n", parse->map[i]);
 	if (!flood_fill(map_copy, parse, player->init_int_x, player->init_int_y))
 	{
 		ft_putstr_fd("validate_struct_var:flood_fill error", 2);

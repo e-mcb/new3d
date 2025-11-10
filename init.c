@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:40 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/08 20:34:06 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/11 00:00:04 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ void	init_parse(t_parse *parse)
 	parse->map_width = -1;
 }
 
+static void	init_keys(t_keys *p_keys)
+{
+	p_keys->key_left = 0;
+	p_keys->key_right = 0;
+	p_keys->key_w = 0;
+	p_keys->key_a = 0;
+	p_keys->key_s = 0;
+	p_keys->key_d = 0;
+}
+
 void	init_player(t_player *player)
 {
 	if (!player)
@@ -46,15 +56,19 @@ void	init_player(t_player *player)
 	player->screen_distance = 0.0f;
 	player->init_int_x = -1;
 	player->init_int_y = -1;
-	player->key_left = 0;
-	player->key_right = 0;
-	player->key_w = 0;
-	player->key_a = 0;
-	player->key_s = 0;
-	player->key_d = 0;
+	init_keys(&player->key);
 	player->dist = 0;
 	player->wall_height = 0;
 	player->wall_x = 0;
+	player->textures.north.img = NULL;
+	player->textures.north.data = NULL;
+	player->textures.south.img = NULL;
+	player->textures.south.data = NULL;
+	player->textures.east.img = NULL;
+	player->textures.east.data = NULL;
+	player->textures.west.img = NULL;
+	player->textures.west.data = NULL;
+	player->texture_to_show = NULL;
 	init_parse(&player->parse);
 }
 
@@ -83,18 +97,6 @@ int	ft_mlx_init(t_player *player)
 			&player->img.bits_per_pixel, &player->img.line_length,
 			&player->img.endian);
 	return (0);
-}
-
-double	fix_dir(double dir)
-{
-	if (fabs(dir) < 1e-12)
-	{
-		if (dir < 0)
-			return (-1e-12);
-		else
-			return (1e-12);
-	}
-	return (dir);
 }
 
 void	init_ray(t_ray *ray, t_player *player)

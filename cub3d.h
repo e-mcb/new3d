@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 17:14:44 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/08 21:12:00 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/11 00:01:03 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # include "minilibx/mlx.h"
 # include <X11/keysym.h>
 
-typedef struct texture_data
+typedef struct texture_data //32bytes, 4bytes aligned
 {
 	int		y;
 	int		start;
@@ -58,7 +58,7 @@ typedef struct texture_data
 	int		color;
 }	t_texture_data;
 
-typedef struct s_texture
+typedef struct s_texture //32bytes, 8bytes aligned
 {
 	void	*img;
 	int		*data;
@@ -66,7 +66,7 @@ typedef struct s_texture
 	int		height;
 }	t_texture;
 
-typedef struct s_textures
+typedef struct s_textures //128bytes, 32bytes aligned
 {
 	t_texture	north;
 	t_texture	south;
@@ -74,7 +74,7 @@ typedef struct s_textures
 	t_texture	west;
 }	t_textures;
 
-typedef struct s_img
+typedef struct s_img //32bytes, 8bytes aligned
 {
 	void	*img;
 	char	*addr;
@@ -83,18 +83,28 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-typedef struct s_parse
+typedef struct s_parse //72 bytes, 8bytes aligned
 {
 	char	*texture_north;
 	char	*texture_south;
 	char	*texture_west;		//all 4 of these are malloc'd, remember to free
 	char	*texture_east;
 
+	char	**map;
 	int		floor_color[3];
 	int		ceiling_color[3];
-	char	**map;
 	int		map_width;
 }	t_parse;
+
+typedef struct s_keys //24bytes, 4bytes aligned
+{
+	int	key_left;
+	int	key_right;
+	int	key_w;
+	int	key_s;
+	int	key_a;
+	int	key_d;
+}	t_keys;
 
 typedef struct s_player
 {
@@ -107,21 +117,16 @@ typedef struct s_player
 	float		screen_distance;
 	float		dist;
 	float		wall_height;
+	float		wall_x;
 	int			init_int_x;
 	int			init_int_y;
-	int			key_left;
-	int			key_right;
-	int			key_w;
-	int			key_s;
-	int			key_a;
-	int			key_d;
-	t_parse		parse;
 	void		*mlx;
 	void		*mlx_win;
+	t_keys		key;
+	t_parse		parse;
 	t_img		img;
 	t_textures	textures;
 	t_texture	*texture_to_show;
-	float		wall_x;
 }	t_player;
 
 typedef struct s_ray
@@ -147,6 +152,7 @@ void	init_parse(t_parse *parse);
 void	init_player(t_player *player);
 int		ft_mlx_init(t_player *player);
 void	init_ray(t_ray *ray, t_player *player);
+double	fix_dir(double dir);
 
 //maths
 float	deg_to_rad(float degrees);

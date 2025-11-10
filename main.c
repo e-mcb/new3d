@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:41 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/08 20:57:26 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/10 23:56:49 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	load_texture(t_player *player, t_texture *tex, char *path)
 			&tex->width, &tex->height);
 	if (!tex->img)
 	{
-		ft_putstr_fd("Failed to open the texture", 2);
+		ft_putstr_fd("Failed to open the texture: ", 2);
 		ft_putstr_fd(path, 2);
 		ft_putchar_fd('\n', 2);
 		return (free_player(player), 1);
@@ -80,7 +80,8 @@ int	main(int argc, char **argv)
 	init_player(&player);
 	if (parse(argc, argv, &player))
 		return (1);
-	validate_struct_var(&player.parse, &player);
+	if (validate_struct_var(&player.parse, &player))
+		return (1);
 	player.direction_angle = player.init_angle + FOV / 2.0;
 	player.screen_distance = (SCREEN_W / 2.0) / tan(FOV / 2.0);
 	if (ft_mlx_init(&player))
