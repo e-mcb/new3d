@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:54 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/08 19:32:48 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/12 19:55:34 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	process_line(char *line, t_parse **parse, t_list **map_lines,
 	if (*map_started == true)
 	{
 		if (line[i] == 0)
-			return (2);
+			return (ft_lstclear(map_lines, free), 2);
 		return (ft_lstadd_back(map_lines, ft_lstnew(ft_strdup(line))), 0);
 	}
 	if (!is_valid_identifier(&line[i]))
@@ -54,8 +54,12 @@ static int	read_map_lines(int fd, t_parse *parse, t_list **map_lines)
 			return (free(line), ft_putstr_fd("rdmaplines:malloc err\n", 2), 1);
 		if (error_code == 2)
 		{
-			free(line);
-			break ;
+			while (line)
+			{
+				free(line);
+				line = get_next_line(fd);
+			}
+			return (1);
 		}
 		free(line);
 		line = get_next_line(fd);

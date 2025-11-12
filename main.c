@@ -6,11 +6,34 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:41 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/10 23:56:49 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/12 19:59:28 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	check_for_bad_map_char(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (map[i] != NULL)
+	{
+		j = 0;
+		while (map[i][j] != 0)
+		{
+			if (!is_valid_map_char(map[i][j]))
+			{
+				return (ft_putstr_fd("Invalid character found in map\n", 2), 1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
 
 int	parse(int argc, char **argv, t_player *player)
 {
@@ -22,6 +45,11 @@ int	parse(int argc, char **argv, t_player *player)
 	if (read_map(argv[1], &player->parse) != 0)
 	{
 		printf("Error\nCould not read map file\n");
+		free_parse(&player->parse);
+		return (1);
+	}
+	if (check_for_bad_map_char(player->parse.map))
+	{
 		free_parse(&player->parse);
 		return (1);
 	}

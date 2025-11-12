@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 17:14:44 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/11 00:01:03 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/13 00:13:45 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
-# define SCREEN_W 1920
+# define SCREEN_W 2500
 # define SCREEN_H 1080
 # define EAST 0
 # define NORTH 1.57079632679
@@ -25,7 +25,6 @@
 # define FOV 1.047197551
 # define ROTATION_SPEED 0.1
 # define MOVE_SPEED 0.1
-# define COLLISION_RADIUS 0.3
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -182,6 +181,7 @@ int		key_release(int keycode, t_player *player);
 int		close_hook(t_player	*player);
 void	destroy_textures(t_player *player);
 int		flood_fill(char **map, t_parse *parse, int x, int y);
+int		is_valid_map_char(char c);
 
 //raycast
 double	castraydda(t_player *player);
@@ -194,5 +194,6 @@ void	go_left(t_player *player);
 void	go_right(t_player *player);
 void	rotate(t_player *player);
 int		can_move(t_player *player, double next_x, double next_y);
+int		is_walkable(t_player *player, double x, double y);
 
 #endif

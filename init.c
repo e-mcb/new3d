@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:40 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/11 00:00:04 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/13 00:24:25 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	init_player(t_player *player)
 	init_parse(&player->parse);
 }
 
-int	ft_mlx_init(t_player *player)
+int	ft_mlx_init(t_player *player) //msg erreur
 {
 	player->mlx = mlx_init();
 	if (!player->mlx)

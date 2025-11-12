@@ -16,6 +16,7 @@ SRCS		=	init.c \
 				utils/maths_utils.c \
 				utils/hooks.c \
 				utils/init_utils.c \
+				utils/movements_utils.c \
 				raycast/movements.c \
 				raycast/render.c \
 				raycast/raycast.c \

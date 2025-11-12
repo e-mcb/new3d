@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:41:59 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/08 19:36:44 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/11 00:52:44 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ int	array_size(char **arr)
 	return (i);
 }
 
-static int	is_valid_map_char(char c)
+int	is_valid_map_char(char c)
 {
 	return (c == '0' || c == '1' || c == ' '
-		|| c == 'N' || c == 'S' || c == 'E' || c == 'W');
+		|| c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == '\n');
 }
 
 int	flood_fill(char **map, t_parse *parse, int x, int y)
