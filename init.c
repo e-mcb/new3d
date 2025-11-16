@@ -77,21 +77,21 @@ int	ft_mlx_init(t_player *player) //msg erreur
 	player->mlx = mlx_init();
 	if (!player->mlx)
 	{
-		free_parse(&player->parse);
-		return (1);
+		ft_putstr_fd("Error\nFailed to initialize MLX\n", 2);
+		return (free_parse(&player->parse), 1);
 	}
 	player->mlx_win = mlx_new_window(player->mlx, SCREEN_W, SCREEN_H, "Cub3d");
 	if (!player->mlx_win)
 	{
-		free_parse(&player->parse);
-		return (1);
+		ft_putstr_fd("Error\nFailed to create window\n", 2);
+		return (free_parse(&player->parse), 1);
 	}
 	player->img.img = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
 	if (!player->img.img)
 	{
+		ft_putstr_fd("Error\nFailed to create image\n", 2);
 		mlx_destroy_window(player->mlx, player->mlx_win);
-		free_parse(&player->parse);
-		return (1);
+		return (free_parse(&player->parse), 1);
 	}
 	player->img.addr = mlx_get_data_addr(player->img.img,
 			&player->img.bits_per_pixel, &player->img.line_length,
