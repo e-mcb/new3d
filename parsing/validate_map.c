@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:59 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/10 21:37:50 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/17 20:36:41 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static int	validate_rgb_array(t_parse *parse)
 	if (parse->ceiling_color[0] > 255 || parse->ceiling_color[0] < 0
 		|| parse->ceiling_color[1] > 255 || parse->ceiling_color[1] < 0
 		|| parse->ceiling_color[2] > 255 || parse->ceiling_color[2] < 0)
-		return (ft_putstr_fd("Invalid ceiling rgb", 2), 1);
+		return (ft_putstr_fd("Error\nInvalid ceiling rgb\n", 2), 1);
 	if (parse->floor_color[0] > 255 || parse->floor_color[0] < 0
 		|| parse->floor_color[1] > 255 || parse->floor_color[1] < 0
 		|| parse->floor_color[2] > 255 || parse->floor_color[2] < 0)
-		return (ft_putstr_fd("Invalid floor rgb", 2), 1);
+		return (ft_putstr_fd("Error\nInvalid floor rgb\n", 2), 1);
 	return (0);
 }
 
@@ -87,12 +87,12 @@ int	validate_struct_var(t_parse *parse, t_player *player)
 	map_copy = duplicate_map(parse->map, array_size(parse->map));
 	if (!map_copy)
 	{
-		printf("map_copy malloc error\n");
+		ft_putstr_fd("map_copy malloc error\n", 2);
 		return (1);
 	}
 	if (!flood_fill(map_copy, parse, player->init_int_x, player->init_int_y))
 	{
-		ft_putstr_fd("validate_struct_var:flood_fill error", 2);
+		ft_putstr_fd("Error\nvalidate_struct_var:flood_fill error\n", 2);
 		ft_free_str_array(map_copy);
 		return (1);
 	}

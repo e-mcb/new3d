@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:54 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/12 19:55:34 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/17 20:35:51 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ static int	process_line(char *line, t_parse **parse, t_list **map_lines,
 		return (ft_lstadd_back(map_lines, ft_lstnew(ft_strdup(line))), 0);
 	}
 	if (!is_valid_identifier(&line[i]))
-		return (ft_putstr_fd("process_line:invalid id\n", 2), 1);
+		return (ft_putstr_fd("Error\nprocess_line:invalid id\n", 2), 1);
 	splitted = ft_new_split(line, " \t\n,");
 	if (!splitted)
-		return (ft_putstr_fd("process_line:malloc error\n", 2), 1);
+		return (ft_putstr_fd("Error\nprocess_line:malloc error\n", 2), 1);
 	return (fill_parse_struct(splitted, parse));
 }
 
@@ -82,12 +82,12 @@ int	map_lst_to_char_array(t_list **map_lines, t_parse **parse)
 	while (tmp)
 	{
 		if (tmp->content == NULL || ((char *)tmp->content)[0] == 0)
-			return (ft_putstr_fd("map_to_array: empty line in the map", 2), 1);
+			return (ft_putstr_fd("map_to_arr: empty line in map\n", 2), 1);
 		if (ft_strlen(tmp->content) > len)
 			len = ft_strlen(tmp->content);
 		(*parse)->map[i] = ft_strdup(tmp->content);
 		if ((*parse)->map[i] == NULL)
-			return (ft_putstr_fd("map_to_array: malloc error", 2), 1);
+			return (ft_putstr_fd("map_to_array: malloc error\n", 2), 1);
 		i++;
 		tmp = tmp->next;
 	}
@@ -118,7 +118,7 @@ int	replace_spaces_and_find_start(t_parse *parse)
 		}
 	}
 	if (start_count != 1)
-		return (ft_putstr_fd("findstart:invalid number of start pos\n", 2), 1);
+		return (ft_putstr_fd("Error\nfindstart:invalid nb pos\n", 2), 1);
 	return (0);
 }
 
@@ -129,17 +129,20 @@ int	read_map(char *filename, t_parse *parse)
 
 	map_lines = NULL;
 	if (!filename || !parse)
-		return (ft_putstr_fd("read_map:nullptr dereferenced\n", 2), 1);
+		return (ft_putstr_fd("Error\nread_map:nullptr dereferenced\n", 2), 1);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		return (ft_putstr_fd("read_map:fd < 0", 2), 1);
+		return (ft_putstr_fd("Error\nread_map:fd < 0\n", 2), 1);
 	if (read_map_lines(fd, parse, &map_lines))
 	{
-		ft_putstr_fd("read_map: read_map_lines returned an error\n", 2);
+		ft_putstr_fd("Error\nread_map: read_map_lines returned an error\n", 2);
 		close(fd);
 		return (1);
 	}
 	close (fd);
+	if (!parse->texture_east || !parse->texture_north || !parse->texture_west
+		|| !parse->texture_south)
+		return (ft_putstr_fd("Error\nTexture path invalid in .cub\n", 2), 1);
 	if (map_lst_to_char_array(&map_lines, &parse))
 		return (1);
 	if (replace_spaces_and_find_start(parse))

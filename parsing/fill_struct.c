@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:46:38 by mzutter           #+#    #+#             */
-/*   Updated: 2025/10/29 20:51:20 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/17 20:06:15 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,25 @@ static int	fill_texture_fields(char **splitted, t_parse **parse)
 	{
 		(*parse)->texture_north = ft_strdup(splitted[1]);
 		if (!(*parse)->texture_north)
-			return (ft_putstr_fd("Err:malloc failed texture_north\n", 2), 1);
+			return (ft_putstr_fd("Error\nmalloc failed txt_north\n", 2), 1);
 	}
 	else if (ft_strncmp(splitted[0], "SO", 3) == 0)
 	{
 		(*parse)->texture_south = ft_strdup(splitted[1]);
 		if (!(*parse)->texture_south)
-			return (ft_putstr_fd("Err:malloc failed texture_south\n", 2), 1);
+			return (ft_putstr_fd("Error\nmalloc failed txt_south\n", 2), 1);
 	}
 	else if (ft_strncmp(splitted[0], "WE", 3) == 0)
 	{
 		(*parse)->texture_west = ft_strdup(splitted[1]);
 		if (!(*parse)->texture_west)
-			return (ft_putstr_fd("Err:malloc failed texture_west\n", 2), 1);
+			return (ft_putstr_fd("Error\nmalloc failed txt_west\n", 2), 1);
 	}
 	else if (ft_strncmp(splitted[0], "EA", 3) == 0)
 	{
 		(*parse)->texture_east = ft_strdup(splitted[1]);
 		if (!(*parse)->texture_east)
-			return (ft_putstr_fd("Err:malloc failed texture_east\n", 2), 1);
+			return (ft_putstr_fd("Error\nmalloc failed txt_east\n", 2), 1);
 	}
 	return (0);
 }
@@ -66,7 +66,7 @@ int	fill_parse_struct(char **splitted, t_parse **parse)
 	int	err;
 
 	if (!splitted || !splitted[0])
-		return (ft_putstr_fd("fill_parse_struct:failed to init arr\n", 2), 1);
+		return (ft_putstr_fd("Error\nfill_prs_str:arr init fail\n", 2), 1);
 	size = array_size(splitted);
 	err = 0;
 	if (size == 2)

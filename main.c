@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:41 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/12 19:59:28 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/17 20:17:33 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_for_bad_map_char(char **map)
 		{
 			if (!is_valid_map_char(map[i][j]))
 			{
-				return (ft_putstr_fd("Invalid character found in map\n", 2), 1);
+				return (ft_putstr_fd("Error\nInvalid char in map\n", 2), 1);
 			}
 			j++;
 		}
@@ -39,12 +39,12 @@ int	parse(int argc, char **argv, t_player *player)
 {
 	if (argc != 2)
 	{
-		printf("Error\nUsage: ./cub3d <map.cub>\n");
+		ft_putstr_fd("Error\nUsage: ./cub3d <map.cub>\n", 2);
 		return (1);
 	}
 	if (read_map(argv[1], &player->parse) != 0)
 	{
-		printf("Error\nCould not read map file\n");
+		ft_putstr_fd("Could not read map file\n", 2);
 		free_parse(&player->parse);
 		return (1);
 	}
@@ -55,7 +55,7 @@ int	parse(int argc, char **argv, t_player *player)
 	}
 	if (spawn_point(player->parse.map, player))
 	{
-		printf("spawn point error");
+		ft_putstr_fd("spawn point error", 2);
 		free_parse(&player->parse);
 		return (1);
 	}
@@ -72,7 +72,7 @@ int	load_texture(t_player *player, t_texture *tex, char *path)
 			&tex->width, &tex->height);
 	if (!tex->img)
 	{
-		ft_putstr_fd("Failed to open the texture: ", 2);
+		ft_putstr_fd("Error\nFailed to open the texture: ", 2);
 		ft_putstr_fd(path, 2);
 		ft_putchar_fd('\n', 2);
 		return (free_player(player), 1);
