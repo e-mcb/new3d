@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:59 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/17 20:36:41 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/18 01:12:51 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ static void	outer_void_to_wall(t_parse **parse, char **map_copy)
 int	validate_struct_var(t_parse *parse, t_player *player)
 {
 	char	**map_copy;
-	int		i;
 
-	i = -1;
 	if (validate_rgb_array(parse))
 		return (1);
 	pad_map(parse);
