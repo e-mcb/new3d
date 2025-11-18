@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:54 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/17 20:35:51 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/18 19:59:04 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static int	read_map_lines(int fd, t_parse *parse, t_list **map_lines)
 		free(line);
 		line = get_next_line(fd);
 	}
+	exit_helper(&map_started, parse, fd);
 	return (0);
 }
 

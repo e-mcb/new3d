@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:36 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/10 23:49:46 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/18 20:00:32 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,15 @@ void	destroy_textures(t_player *player)
 		mlx_destroy_image(player->mlx, player->textures.east.img);
 	if (player->textures.west.img && player->mlx)
 		mlx_destroy_image(player->mlx, player->textures.west.img);
+}
+
+void	exit_helper(bool *map_started, t_parse *parse, int fd)
+{
+	if (!*map_started)
+	{
+		close (fd);
+		free_parse(parse);
+		ft_putstr_fd("Error\nNo map found\n", 2);
+		exit (1);
+	}
 }

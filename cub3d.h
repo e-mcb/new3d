@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 17:14:44 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/13 00:13:45 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/18 20:07:18 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,9 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
 # include <stdbool.h>
-# include <limits.h>
 # include <math.h>
 # include "libft/libft.h"
 # include "minilibx/mlx.h"
@@ -153,10 +144,6 @@ int		ft_mlx_init(t_player *player);
 void	init_ray(t_ray *ray, t_player *player);
 double	fix_dir(double dir);
 
-//maths
-float	deg_to_rad(float degrees);
-float	rad_to_deg(float rad);
-
 //parsing
 int		read_map(char *filename, t_parse *parse);
 int		spawn_point(char **map, t_player *player);
@@ -182,6 +169,7 @@ int		close_hook(t_player	*player);
 void	destroy_textures(t_player *player);
 int		flood_fill(char **map, t_parse *parse, int x, int y);
 int		is_valid_map_char(char c);
+void	exit_helper(bool *map_started, t_parse *parse, int fd);
 
 //raycast
 double	castraydda(t_player *player);

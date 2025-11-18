@@ -13,14 +13,12 @@ SRCS		=	init.c \
 				utils/utils_array.c \
 				utils/new_split.c \
 				utils/cleanup_utils.c \
-				utils/maths_utils.c \
 				utils/hooks.c \
 				utils/init_utils.c \
 				utils/movements_utils.c \
 				raycast/movements.c \
 				raycast/render.c \
 				raycast/raycast.c \
-				raycast/collision_radius.c
 
 OBJ_DIR		= objects
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
