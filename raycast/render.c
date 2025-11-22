@@ -12,6 +12,7 @@
 
 #include "../cub3d.h"
 
+// Combines R, G, B (0–255) into a single 24-bit 0xRRGGBB color value
 static void	put_pixel(t_img *img, int x, int y, int *rgb)
 {
 	int	color;

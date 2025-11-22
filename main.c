@@ -101,6 +101,9 @@ int	load_all_textures(t_player	*player)
 	return (0);
 }
 
+// screen_distance is the distance from the player to 
+// the projection plane, computed from the FOV.
+
 int	main(int argc, char **argv)
 {
 	t_player	player;

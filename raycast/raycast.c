@@ -12,6 +12,9 @@
 
 #include "../cub3d.h"
 
+//side = 0 when vertical wall
+//side = 1 when horizontal wall
+
 void	perform_dda(t_ray *ray, t_player *player)
 {
 	int	hit;
@@ -36,6 +39,12 @@ void	perform_dda(t_ray *ray, t_player *player)
 			hit = 1;
 	}
 }
+
+// (1 - step_x) * 0.5 shifts the intersection to the correct wall side.
+// When the ray goes left (step_x = -1), we add 1 to use the right
+// face of the block.
+// When it goes right (step_x = 1), no correction is needed.
+// Same thing for y.
 
 void	compute_distance(t_ray *ray, t_player *player)
 {

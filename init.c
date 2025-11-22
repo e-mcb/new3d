@@ -99,6 +99,15 @@ int	ft_mlx_init(t_player *player) //msg erreur
 	return (0);
 }
 
+// deltadist_x is the distance to travel along the ray to go from one
+// vertical grid line to the next.
+// deltadist_y is the distance to travel along the ray to go from one
+// horizontal grid line to the next.
+//
+// sidedist_x and sidedist_y are the distances to travel in order to reach
+// the first wall. They are computed using a proportional relation with
+// deltadist_x and deltadist_y.
+
 void	init_ray(t_ray *ray, t_player *player)
 {
 	ray->raydir_x = fix_dir(cos(player->direction_angle));
