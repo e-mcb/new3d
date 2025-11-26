@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:54 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/26 21:57:30 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/26 22:00:33 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,8 @@ int	read_map(char *filename, t_parse *parse)
 	close (fd);
 	if (!parse->texture_east || !parse->texture_north || !parse->texture_west
 		|| !parse->texture_south)
-		return (ft_putstr_fd("Error\nTexture path invalid in .cub\n", 2), 1);
+		return (ft_putstr_fd("Error\nTexture path invalid in .cub\n", 2),
+			ft_lstclear(&map_lines, free), 1);
 	if (map_lst_to_char_array(&map_lines, &parse))
 		return (1);
 	if (replace_spaces_and_find_start(parse))
