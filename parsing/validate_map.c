@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:59 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/18 01:12:51 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/26 21:31:47 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ static int	validate_rgb_array(t_parse *parse)
 	if (parse->ceiling_color[0] > 255 || parse->ceiling_color[0] < 0
 		|| parse->ceiling_color[1] > 255 || parse->ceiling_color[1] < 0
 		|| parse->ceiling_color[2] > 255 || parse->ceiling_color[2] < 0)
-		return (ft_putstr_fd("Error\nInvalid ceiling rgb\n", 2), 1);
+		return (ft_putstr_fd("Error\nInvalid ceiling rgb\n", 2),
+			free_parse(parse), 1);
 	if (parse->floor_color[0] > 255 || parse->floor_color[0] < 0
 		|| parse->floor_color[1] > 255 || parse->floor_color[1] < 0
 		|| parse->floor_color[2] > 255 || parse->floor_color[2] < 0)
-		return (ft_putstr_fd("Error\nInvalid floor rgb\n", 2), 1);
+		return (ft_putstr_fd("Error\nInvalid floor rgb\n", 2),
+			free_parse(parse), 1);
 	return (0);
 }
 
@@ -92,6 +94,7 @@ int	validate_struct_var(t_parse *parse, t_player *player)
 	{
 		ft_putstr_fd("Error\nvalidate_struct_var:flood_fill error\n", 2);
 		ft_free_str_array(map_copy);
+		free_parse(parse);
 		return (1);
 	}
 	outer_void_to_wall(&parse, map_copy);

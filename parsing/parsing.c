@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:39:54 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/18 19:59:04 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/26 21:57:30 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ static int	process_line(char *line, t_parse **parse, t_list **map_lines,
 	if (*map_started == true)
 	{
 		if (line[i] == 0)
-			return (ft_lstclear(map_lines, free), 2);
+			return (ft_putstr_fd("Error\nData after map\n", 2),
+				ft_lstclear(map_lines, free), 2);
 		return (ft_lstadd_back(map_lines, ft_lstnew(ft_strdup(line))), 0);
 	}
 	if (!is_valid_identifier(&line[i]))
-		return (ft_putstr_fd("Error\nprocess_line:invalid id\n", 2), 1);
+		return (ft_putstr_fd("Error\nprocess_line:invalid id\n", 2), 2);
 	splitted = ft_new_split(line, " \t\n,");
 	if (!splitted)
 		return (ft_putstr_fd("Error\nprocess_line:malloc error\n", 2), 1);
@@ -136,7 +137,6 @@ int	read_map(char *filename, t_parse *parse)
 		return (ft_putstr_fd("Error\nread_map:fd < 0\n", 2), 1);
 	if (read_map_lines(fd, parse, &map_lines))
 	{
-		ft_putstr_fd("Error\nread_map: read_map_lines returned an error\n", 2);
 		close(fd);
 		return (1);
 	}

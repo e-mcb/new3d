@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:41:59 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/11 00:52:44 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/26 21:48:01 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	flood_fill(char **map, t_parse *parse, int x, int y)
 {
 	char	c;
 
-	if (x < 0 || y < 0)
+	if (x <= 0 || y <= 0 || x >= parse->map_width || y >= array_size(map))
 		return (0);
 	c = map[y][x];
 	if (c == ' ' || c == '\0')

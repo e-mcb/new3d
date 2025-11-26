@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 20:46:38 by mzutter           #+#    #+#             */
-/*   Updated: 2025/11/17 20:06:15 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/11/26 21:43:15 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,32 +31,36 @@ void	fill_color_int_array(char **splitted, t_parse **parse)
 	return ;
 }
 
-static int	fill_texture_fields(char **splitted, t_parse **parse)
+static int	assign_texture(char **dst, char *src, const char *name)
+{
+	if (*dst)
+	{
+		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd((char *)name, 2);
+		ft_putstr_fd(" exists already\n", 2);
+		return (2);
+	}
+	*dst = ft_strdup(src);
+	if (!(*dst))
+	{
+		ft_putstr_fd("Error\nmalloc failed ", 2);
+		ft_putstr_fd((char *)name, 2);
+		ft_putstr_fd("\n", 2);
+		return (1);
+	}
+	return (0);
+}
+
+int	fill_texture_fields(char **splitted, t_parse **parse)
 {
 	if (ft_strncmp(splitted[0], "NO", 3) == 0)
-	{
-		(*parse)->texture_north = ft_strdup(splitted[1]);
-		if (!(*parse)->texture_north)
-			return (ft_putstr_fd("Error\nmalloc failed txt_north\n", 2), 1);
-	}
+		return (assign_texture(&(*parse)->texture_north, splitted[1], "North"));
 	else if (ft_strncmp(splitted[0], "SO", 3) == 0)
-	{
-		(*parse)->texture_south = ft_strdup(splitted[1]);
-		if (!(*parse)->texture_south)
-			return (ft_putstr_fd("Error\nmalloc failed txt_south\n", 2), 1);
-	}
+		return (assign_texture(&(*parse)->texture_south, splitted[1], "South"));
 	else if (ft_strncmp(splitted[0], "WE", 3) == 0)
-	{
-		(*parse)->texture_west = ft_strdup(splitted[1]);
-		if (!(*parse)->texture_west)
-			return (ft_putstr_fd("Error\nmalloc failed txt_west\n", 2), 1);
-	}
+		return (assign_texture(&(*parse)->texture_west, splitted[1], "West"));
 	else if (ft_strncmp(splitted[0], "EA", 3) == 0)
-	{
-		(*parse)->texture_east = ft_strdup(splitted[1]);
-		if (!(*parse)->texture_east)
-			return (ft_putstr_fd("Error\nmalloc failed txt_east\n", 2), 1);
-	}
+		return (assign_texture(&(*parse)->texture_east, splitted[1], "East"));
 	return (0);
 }
 
@@ -69,6 +73,12 @@ int	fill_parse_struct(char **splitted, t_parse **parse)
 		return (ft_putstr_fd("Error\nfill_prs_str:arr init fail\n", 2), 1);
 	size = array_size(splitted);
 	err = 0;
+	if (size == 0 || size == 1 || size == 3 || size > 4)
+	{
+		ft_free_str_array(splitted);
+		ft_putstr_fd("Error\nEmpty texture field\n", 2);
+		return (2);
+	}
 	if (size == 2)
 		err = fill_texture_fields(splitted, parse);
 	else if ((splitted[0][0] == 'F' || splitted[0][0] == 'C') && size == 4)
